@@ -40,4 +40,5 @@ end)
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/LOLking123456/RngNew/main/Sols"))()
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Looser3itx/Hmmmmmmmmmmmmmmmmmmmmmmmmmmmm/main/old_lol"))()
+
+
