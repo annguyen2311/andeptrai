@@ -18,26 +18,6 @@ game:service'Players'.LocalPlayer.Idled:connect(function()
 bb:CaptureController()bb:ClickButton2(Vector2.new())
 ab.Text="Roblox tried to kick u but i kicked him instead"wait(2)ab.Text="Status : Active"end)
 
-for i,v in next, workspace:GetDescendants() do
-    pcall(function()
-        v.Transparency = 1
-    end)
-end
-for i,v in next, getnilinstances() do
-    pcall(function()
-        v.Transparency = 1
-        for i1,v1 in next, v:GetDescendants() do
-            v1.Transparency = 1
-        end
-    end)
-end
-a = workspace
-a.DescendantAdded:Connect(function(v)
-    pcall(function()
-        v.Transparency = 1
-    end)
-end)
-
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Just3itx/Backup/main/loader.lua"))()
 
 
