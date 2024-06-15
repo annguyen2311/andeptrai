@@ -21,3 +21,6 @@ ab.Text="Roblox tried to kick u but i kicked him instead"wait(2)ab.Text="Status 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Just3itx/Backup/main/loader.lua"))()
 
 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/LOLking123456/RngNew/main/Sols"))()
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/annguyen2311/sciprt/main/boost%20fps.txt"))()
