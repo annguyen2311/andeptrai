@@ -1,3 +1,147 @@
-getgenv().ImportMacro = "https://discord.com/channels/1193907384997920788/1230191238192562288/1252835591398100992"
+getgenv().ImportMacro = {
+    "https://cdn.discordapp.com/attachments/1230191238192562288/1252830348417695744/message.txt?ex=6673a4af&is=6672532f&hm=6c99ddf89636adbe7ea14f3c72c62283f60b1fdabc968b248f2989dfaa860905&",
+}
+getgenv().Config = {
+	["SelectChapter"] = "Infinite",
+	["AutoSave"] = true,
+	["WH_MatchComplete"] = false,
+	["AutoSkip"] = true,
+	["AutoClaimQuest"] = true,
+	["TPLobbyIfPlayer"] = true,
+	["SelectChallengeWorld"] = {
+		["Cursed Academy"] = false,
+		["Blue Planet"] = false,
+		["Snowy Woods"] = false,
+		["Underwater Temple"] = false,
+		["Swordsman Dojo"] = false,
+		["Mob City"] = false,
+		["Windmill Village"] = false
+	},
+	["WaitForJoiner"] = false,
+        ["SelectMacro"] = "message",
+	["JoinerList"] = {
+		[1] = "No joiner in the list"
+	},
+	["TeleportLobbyNewBanner"] = false,
+	["AutoJoinRaid"] = false,
+	["AutoPlayNext"] = false,
+	["SelectReward"] = {
+		["Gold"] = false,
+		["Trait Crystal"] = false,
+		["Star Rift "] = false,
+		["Star Rift (Rainbow)"] = false,
+		["Gems"] = false,
+		["Star Rift (Dark)"] = false,
+		["Risky Dice"] = false
+	},
+	["SelectWorld"] = "Windmill Village",
+	["BoostFPS"] = true,
+	["IgnoreMacroTiming"] = true,
+	["SelectDifficulty"] = {
+		["All units lowered range"] = false,
+		["All enemies regen health"] = false,
+		["All units increased cost"] = false,
+		["All enemies +1 shield"] = false,
+		["All enemies 2x health"] = false,
+		["All enemies 2x speed"] = false
+	},
+	["JoinerCooldown"] = 0,
+	["AutoSell"] = false,
+	["AutoRejoin"] = true,
+	["BlackScreen"] = true,
+	["AutoReturnLobby"] = true,
+	["WH_BannerSummoned"] = false,
+	["SelectRaidMacro"] = {
+
+	},
+	["SelectChallengeMacro"] = {
+
+	},
+	["OFARecord"] = false,
+	["PlayMacro"] = true,
+	["AutoJoinTower"] = false,
+	["HillHeight"] = {
+		["Cursed Academy"] = 2,
+		["Snowy Woods"] = 2,
+		["Blue Planet"] = 2,
+		["Tower of Eternity"] = 2,
+		["Underwater Temple"] = 2,
+		["Swordsman Dojo"] = 2,
+		["Mob City"] = 2,
+		["Windmill Village"] = 2
+	},
+	["PlaceGap"] = {
+		["Cursed Academy"] = 3.25,
+		["Snowy Woods"] = 3.25,
+		["Blue Planet"] = 3.25,
+		["Tower of Eternity"] = 3.25,
+		["Underwater Temple"] = 3.25,
+		["Swordsman Dojo"] = 3.25,
+		["Mob City"] = 3.25,
+		["Windmill Village"] = 3.25
+	},
+	["HardMode"] = false,
+	["AutoUpgrade"] = false,
+	["StandardSummonUnit"] = {
+		["Dragon Slayer"] = false,
+		["Shinobi Form 3"] = false,
+		["Vengeful Shinobi"] = false,
+		["Strongest Swordsman"] = false,
+		["Admiral Of Lava"] = false,
+		["The Gamer"] = false,
+		["Chance Taker"] = false,
+		["Ant King"] = false,
+		["Esper"] = false,
+		["Elf Wizardess"] = false,
+		["Cursed Fighter"] = false,
+		["Skull Warrior"] = false,
+		["Thunder Shinobi"] = false,
+		["Flame Dragon King"] = false,
+		["Curse Prince"] = false,
+		["Maxed Qi Master"] = false,
+		["Carp"] = false,
+		["Ascended Qi Master"] = false,
+		["Spirit Hybrid"] = false,
+		["Soulforce Reaper"] = false,
+		["Admiral Of Ice"] = false,
+		["Inferno Commander"] = false,
+		["Pink Rockstar"] = false,
+		["Fire Leg Master"] = false,
+		["Sharpshooter"] = false,
+		["Clay"] = false,
+		["Admiral Of Light"] = false,
+		["The Beast"] = false,
+		["Bloomer"] = false,
+		["Master Swordsman"] = false
+	},
+	["MiddlePos"] = {
+
+	},
+	["UpgradeAndPlace"] = false,
+	["AutoSummonLimited"] = false,
+	["LimitedSummonUnit"] = {
+		["Muscular Sorcerer"] = false,
+		["The Rift Sorcerer"] = false,
+		["Blood Demon"] = false,
+		["Beast Sorcerer"] = false,
+		["Cursed Archer"] = false
+	},
+	["UnselectIfSummoned"] = false,
+	["AutoPlay"] = false,
+	["JoinHighest"] = false,
+	["AutoReplay"] = true,
+	["DeleteMap"] = true,
+	["AutoJoinWorld"] = true,
+	["LeaveSellWave"] = 31,
+	["AutoLeave"] = true,
+	["DeleteRarity"] = {
+		["Epic"] = false,
+		["Legendary"] = false,
+		["Rare"] = false
+	},
+	["AutoJoinChallenge"] = false,
+	["AutoSummonStandard"] = false,
+	["AutoJoinHoster"] = false
+}
 getgenv().Key = "k398154cc70670349742d40c"
 repeat wait()spawn(function()loadstring(game:HttpGet("https://nousigi.com/loader.lua"))()end)wait(10)until Joebiden
