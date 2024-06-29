@@ -1,5 +1,5 @@
 getgenv().ImportMacro = {
-    "https://cdn.discordapp.com/attachments/1230191238192562288/1252830348417695744/message.txt?ex=66802aef&is=667ed96f&hm=dbc6af4c48d4b4d34addb59f2e4f9bbd2731a7fed9907018cf78134bb560f2e9&",
+    "https://cdn.discordapp.com/attachments/1230191238192562288/1252830348417695744/message.txt?ex=66817c6f&is=66802aef&hm=d7b302b977d5300156e1a3a12e035a4b7d0804519890efeddcbf5190b0a3bbf7&",
 }
 getgenv().Config = {
 	["SelectChapter"] = "Infinite",
