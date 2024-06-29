@@ -144,5 +144,5 @@ getgenv().Config = {
 	["AutoSummonStandard"] = false,
 	["AutoJoinHoster"] = false
 }
-getgenv().Key = "k398154cc70670349742d40c"
+getgenv().Key = "kef43b11e6efe768f79f1fad"
 repeat wait()spawn(function()loadstring(game:HttpGet("https://nousigi.com/loader.lua"))()end)wait(10)until Joebiden
