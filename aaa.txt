@@ -18,5 +18,5 @@ game:service'Players'.LocalPlayer.Idled:connect(function()
 bb:CaptureController()bb:ClickButton2(Vector2.new())
 ab.Text="Roblox tried to kick u but i kicked him instead"wait(2)ab.Text="Status : Active"end)
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/ThacG/EruditeHub/main/Sol's%20RNG/V1.4"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/annguyen2311/sciprt/main/boost%20fps.txt"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/LOLking123456/RngNew/main/Sols"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Just3itx/Backup/main/loader.lua"))()
