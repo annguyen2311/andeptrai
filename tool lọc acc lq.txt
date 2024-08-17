@@ -1,0 +1,73 @@
+import re
+import tkinter as tk
+from tkinter import filedialog, messagebox
+
+def filter_accounts(input_file, output_file):
+    try:
+        with open(input_file, 'r', encoding='utf-8') as file:
+            data_list = file.readlines()
+
+        results = []
+        for data in data_list:
+            data = data.strip()
+            match = re.match(r'([^|]+)\|([^|]+)', data)
+            if match:
+                name = match.group(1)
+                phone_or_password = match.group(2).rstrip('.')
+                results.append((name, phone_or_password))
+
+        with open(output_file, 'w', encoding='utf-8') as file:
+            for result in results:
+                file.write(f"Tên tài khoản: {result[0]},mật khẩu: {result[1]}\n")
+
+        messagebox.showinfo("Hoàn thành", f"Kết quả đã được lưu vào {output_file}")
+
+    except FileNotFoundError:
+        messagebox.showerror("Lỗi", "File đầu vào không tồn tại. Vui lòng kiểm tra lại đường dẫn.")
+    except Exception as e:
+        messagebox.showerror("Lỗi", f"Đã xảy ra lỗi: {str(e)}")
+
+def select_input_file():
+    file_path = filedialog.askopenfilename(title="Chọn file đầu vào")
+    input_entry.delete(0, tk.END)
+    input_entry.insert(0, file_path)
+
+def select_output_file():
+    file_path = filedialog.asksaveasfilename(title="Chọn file đầu ra", defaultextension=".txt", filetypes=[("Text files", "*.txt")])
+    output_entry.delete(0, tk.END)
+    output_entry.insert(0, file_path)
+
+def start_filtering():
+    input_file = input_entry.get()
+    output_file = output_entry.get()
+    if input_file and output_file:
+        filter_accounts(input_file, output_file)
+    else:
+        messagebox.showwarning("Cảnh báo", "Vui lòng chọn cả file đầu vào và file đầu ra.")
+
+# Tạo cửa sổ chính
+root = tk.Tk()
+root.title("Công Cụ Lọc Tài Khoản Liên Quân")
+
+# Label và Entry cho file đầu vào
+input_label = tk.Label(root, text="File đầu vào:")
+input_label.grid(row=0, column=0, padx=10, pady=10)
+input_entry = tk.Entry(root, width=50)
+input_entry.grid(row=0, column=1, padx=10, pady=10)
+input_button = tk.Button(root, text="Chọn file...", command=select_input_file)
+input_button.grid(row=0, column=2, padx=10, pady=10)
+
+# Label và Entry cho file đầu ra
+output_label = tk.Label(root, text="File đầu ra:")
+output_label.grid(row=1, column=0, padx=10, pady=10)
+output_entry = tk.Entry(root, width=50)
+output_entry.grid(row=1, column=1, padx=10, pady=10)
+output_button = tk.Button(root, text="Chọn file...", command=select_output_file)
+output_button.grid(row=1, column=2, padx=10, pady=10)
+
+# Nút bắt đầu lọc
+start_button = tk.Button(root, text="Bắt đầu lọc", command=start_filtering)
+start_button.grid(row=2, column=1, padx=10, pady=20)
+
+# Khởi chạy giao diện
+root.mainloop()
