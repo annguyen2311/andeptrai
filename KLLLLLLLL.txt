@@ -5,7 +5,7 @@ getgenv().Key = "74b5a39c50477551e314f15f"
 
 if not _G.Config then
     local k = {
-        Enabled = false, --> true: enable or false: disable the script
+        Enabled = true, --> true: enable or false: disable the script
         Events = {
             SwordChanged = nil,
             FightingStyleChanged = nil,
@@ -20,11 +20,11 @@ if not _G.Config then
         }, --> Necessary for script, do not adjust!
 
         Loops = {
-            BringMob = false,
-            Attack = false,
-            UseSkills = false,
-            M1s = false,
-            AttackLoop = false,
+            BringMob = true,
+            Attack = true,
+            UseSkills = true,
+            M1s = true,
+            AttackLoop = true,
         },  --> Necessary for script, do not adjust!
 
         Allowed_Actions = {
@@ -52,13 +52,13 @@ if not _G.Config then
 
             FindSeaMonster = true, --> Auto find sea monsters!
 
-            Sea2Unlock = false, --> Auto unlock Sea 2!
-            Sea3Unlock = false, --> Auto unlock Sea 3!
+            Sea2Unlock = true, --> Auto unlock Sea 2!
+            Sea3Unlock = true, --> Auto unlock Sea 3!
 
             Aimlock = false,
             MouseLock = false,
 
-            Protect = false,
+            Protect = true,
 
             Webhook = {
                 Enabled = false,
@@ -79,11 +79,11 @@ if not _G.Config then
             Parts = true,
             Particles = true,
             Sky = true,
-            FullBright = false
+            FullBright = true
         },
 
         Performance = {
-            SetFPS = 20, --> Useful for low cpu usage, while using in long time!
+            SetFPS = 60, --> Useful for low cpu usage, while using in long time!
             WhiteScreen = false, --> Not recommended to use
         }
     }
