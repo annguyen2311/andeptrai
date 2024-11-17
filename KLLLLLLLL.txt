@@ -1,92 +1,72 @@
 local start = tick()
-repeat task.wait() until game.Players.LocalPlayer and game.Players.LocalPlayer:FindFirstChild("DataLoaded") and game.Players.LocalPlayer:FindFirstChild("DataLoaded").Value
+repeat task.wait() 
+    repeat task.wait() pcall(function() game.ReplicatedStorage.Chest.Remotes.Functions.EtcFunction:InvokeServer("EnterTheGame", {}) end) until not game:GetService("Lighting"):FindFirstChild("TeamBlur") 
+until game.Players.LocalPlayer
 
-getgenv().Key = "74b5a39c50477551e314f15f"
+getgenv().Key = "74b5a39c50477551e314f15f" -- Nhập key của bạn vô đây
 
-if not _G.Config then
-    local k = {
-        Enabled = true, --> true: enable or false: disable the script
-        Events = {
-            SwordChanged = nil,
-            FightingStyleChanged = nil,
-            EnemiesAdded = nil,
-            EnemiesRemoved = nil,
-            FlingPrevent = nil,
-            WindowFocusReleased = nil,
-            WindowFocused = nil,
-            RaceChanged = nil,
-            TimeElapsed = nil,
-            LogService = nil,
-        }, --> Necessary for script, do not adjust!
+_G.Mode = "Kaitun"
 
-        Loops = {
-            BringMob = true,
-            Attack = true,
-            UseSkills = true,
-            M1s = true,
-            AttackLoop = true,
-        },  --> Necessary for script, do not adjust!
+-- Cấu hình cho kaitun:
+_G.Configs = {
+    Allowed_Actions = {
+        FarmingLevel = true, --> Auto farming level
+        CollectChests = true, --> Collect all chests!
+        TierFruits = {"Uncommon", "Common", "Rare", "Epic", "Legendary"},
+        StoreFruits = true, --> Auto store devil fruit!
+        BossesAim = { "Expert Swordman [Lv. 3000]", "King Samurai [Lv. 3500]", "Dragon [Lv. 5000]",
+        "Ms. Mother [Lv. 7500]", "Ghost Ship", "SeaKing", "HydraSeaKing", "SeaDragon", "ThirdSeaDragon", "ThirdSeaEldritch Crab" }, --> Focus on these bosses!
+        SpecificItemsToGet = {"DarkLeg", "Cyborg", "Buso", "Ken", "WaterStyle", "DragonClaw", "Electro"}, --> Get specific items!
 
-        Allowed_Actions = {
-            FarmingLevel = false, --> Auto farming level
-            CollectChests = true, --> Collect all chests!
-            TierFruits = {"Uncommon", "Common", "Rare", "Epic", "Legendary"},
-            StoreFruits = true, --> Auto store devil fruit!
-            BossesAim = { "Expert Swordman [Lv. 3000]", "King Samurai [Lv. 3500]", "Dragon [Lv. 5000]",
-            "Ms. Mother [Lv. 7500]", "Ghost Ship", "SeaKing", "HydraSeaKing" }, --> Focus on these bosses!
-            SpecificItemsToGet = {"DarkLeg", "Cyborg", "Buso", "Ken", "WaterStyle", "DragonClaw", "Electro"}, --> Get specific items!
-
-            M1 = true, --> Auto M1 attack!
-            Skills = {
-                Enabled = true,
-                List = {FS = true, SW = true, DF = true},
-                DFList = { Z = true, X = true, C = true, V = true }
-            },
-
-            Stats = {
-                Melee = { Name = "Melee", Enabled = true }, --> Enable to upgrade!
-                Sword = { Name = "sword", Enabled = true },
-                Defense = { Name = "Defense", Enabled = true },
-                Fruit = { Name = "DF", Enabled = false }
-            }, --> Upgrade order: Melee --> Sword --> Defense --> Fruit
-
-            FindSeaMonster = true, --> Auto find sea monsters!
-
-            Sea2Unlock = true, --> Auto unlock Sea 2!
-            Sea3Unlock = true, --> Auto unlock Sea 3!
-
-            Aimlock = false,
-            MouseLock = false,
-
-            Protect = true,
-
-            Webhook = {
-                Enabled = false,
-                Level = 10,
-                Logs = {PlayerStatus = true, Bosses = true, Console = true},
-                URL = ""--"https://discord.com/api/webhooks/id/token",
-            },
+        Skills = {
+            Enabled = true,
+            List = {FS = true, SW = true, DF = true},
+            DFList = { Z = true, X = true, C = true, V = true }
         },
 
-        OnlyFarm = { ["Dragon [Lv. 5000]"] = { Enabled = false, At = 5000, Keep = 100 } }, --> Focus on Dragon [Lv. 5000]!, Keep 100 orbs then spawn
+        Stats = {
+            Melee = { Name = "Melee", Enabled = true }, --> Enable to upgrade!
+            Sword = { Name = "sword", Enabled = true },
+            Defense = { Name = "Defense", Enabled = true },
+            Fruit = { Name = "DF", Enabled = false }
+        }, --> Upgrade order: Melee --> Sword --> Defense --> Fruit
 
-        Farm = CFrame.Angles(math.pi / -2, 0, 0) * CFrame.new(0, 0, 7), --> Efficient farming!
+        FindSeaMonster = true, --> Auto find sea monsters!
 
-        -- Optimize farming
-        Options_Disable = {
-            Textures = true,
-            VisualEffects = true,
-            Parts = true,
-            Particles = true,
-            Sky = true,
-            FullBright = true
+        Sea2Unlock = true, --> Auto unlock Sea 2!
+        Sea3Unlock = true, --> Auto unlock Sea 3!
+
+        Webhook = {
+            Enabled = false,
+            Level = 10,
+            Logs = {PlayerStatus = true, Bosses = true, Console = true},
+            URL = ""--"https://discord.com/api/webhooks/id/token",
         },
+        M1 = true, --> Auto M1 attack!
+    },
 
-        Performance = {
-            SetFPS = 60, --> Useful for low cpu usage, while using in long time!
-            WhiteScreen = false, --> Not recommended to use
-        }
-    }
-    _G.Config = k
-end
-loadstring(game:HttpGet("https://raw.githubusercontent.com/obiiyeuem/vthangsitink/main/BananaCat-KaitunKL.lua"))()
+    Performance = {
+        SetFPS = 60, --> Useful for low cpu usage, while using in long time!
+        WhiteScreen = false, --> Not recommended to use
+    },
+
+    OnlyFarm = { ["Dragon [Lv. 5000]"] = { Enabled = false, At = 5000, Keep = 100 } }, --> Focus on Dragon [Lv. 5000]!, Keep 100 orbs then spawn
+    Farm = CFrame.Angles(math.pi / -2, 0, 0) * CFrame.new(0, 0, 7),
+    Events={SwordChanged=nil,FightingStyleChanged=nil,EnemiesAdded=nil,EnemiesRemoved=nil,FlingPrevent=nil,WindowFocusReleased=nil,WindowFocused=nil,RaceChanged=nil,TimeElapsed=nil,LogService=nil},
+    Loops={BringMob=false,Attack=false,UseSkills=false,M1s=false,AttackLoop=false},
+}
+
+-- Chỉnh sửa đồ hoạ trò chơi, hỗ trợ giảm giật và đơ:
+_G.FX_Options = {
+        Enabled = true, -- Bật tắt chỉnh sửa đồ hoạ
+        Textures = true, -- Xoá kết cấu, hiệu ứng
+        VisualEffects = true, -- Xoá hiệu ứng
+        Invisible = false, -- Ẩn các khối
+        Parts = false, -- Bật / tắt ẩn các khối phải kết hợp với "Invisible
+        Particles = true,  -- Xoá hiệu ứng
+        Sky = true, --> Xoá trời
+        FullBright = true -- Chỉnh sáng
+};
+
+-- Kịch bản sẽ được thực hiện:
+loadstring(game:HttpGet("https://raw.githubusercontent.com/RedGamer12/TNNP-SYSTEM/refs/heads/main/client/King%20Legacy/main-obfuscated.lua"))()
