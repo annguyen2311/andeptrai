@@ -23,6 +23,8 @@ local function sendWebhook(title, description, color)
 end
 
 LogService.MessageOut:Connect(function(message, messageType)
+    print("MessageType: ", messageType)  -- In ra loại tin nhắn
+    print("Message: ", message)          -- In ra nội dung tin nhắn
     if string.find(message, "Found") and string.find(message, "Crystal Key Upper Half") then
         foundItems = true
         local price = string.match(message, "@ (.-)%%") or "Unknown"
