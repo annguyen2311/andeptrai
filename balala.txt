@@ -1,1 +1,79 @@
-print("hiiiiii")
+-- Đảm bảo HttpService đã được khai báo
+local HttpService = game:GetService("HttpService")
+local LogService = game:GetService("LogService")
+local TeleportService = game:GetService("TeleportService")
+
+-- URL Webhook của bạn
+local webhookURL = "https://discord.com/api/webhooks/1229021039644774530/8s_5Y23i6ZWjGQ_pCQ_rl-JlZ3Kz-oeBHvTRdM44q2tapNSkzOs0ms1AoSLuCClzm7gj"
+
+-- Hàm gửi webhook
+local function sendWebhook(title, description, color)
+    local data = {
+        ["content"] = "",
+        ["embeds"] = {
+            {
+                ["title"] = title,
+                ["description"] = description,
+                ["color"] = color
+            }
+        }
+    }
+    -- Sử dụng pcall để xử lý lỗi khi gửi webhook
+    local success, errorMsg = pcall(function()
+        HttpService:PostAsync(webhookURL, HttpService:JSONEncode(data), Enum.HttpContentType.ApplicationJson)
+    end)
+    
+    if not success then
+        print("Failed to send webhook: ", errorMsg)
+    else
+        print("Webhook sent successfully.")
+    end
+end
+
+-- Kiểm tra tin nhắn từ LogService và gửi webhook nếu tìm thấy vật phẩm cần
+LogService.MessageOut:Connect(function(message, messageType)
+    -- In ra tất cả tin nhắn nhận được để kiểm tra
+    print("Checking message: ", message)
+    
+    -- Kiểm tra nếu tin nhắn có chứa "Found" và "Crystal Key Upper Half"
+    if string.find(message, "Found") and string.find(message, "Crystal Key Upper Half") then
+        print("Match found!")
+        
+        -- Lấy giá trị giá (price) và số lượng (quantity) từ tin nhắn
+        local price = string.match(message, "@ (.-)%%") or "Unknown"
+        local quantity = string.match(message, "%((%d+)%)") or "Unknown"
+        
+        -- Gửi webhook thông báo về vật phẩm tìm thấy
+        sendWebhook("Sniper Found an Item!", "Item: Crystal Key Upper Half\nPrice: "..price.."%\nQuantity: "..quantity, 5814783)
+    end
+end)
+
+-- Sự kiện chuyển server
+local function hopToNewServer()
+    -- Lấy thông tin server mới (ví dụ: bằng cách lấy danh sách server từ Roblox)
+    local randomServer = "someServerId" -- Ví dụ: thay bằng ID server mà bạn muốn chuyển đến
+    print("Switching to a new server...")
+    
+    -- Sử dụng TeleportService để chuyển server
+    local success, errorMsg = pcall(function()
+        TeleportService:TeleportToPlaceInstance(game.PlaceId, randomServer)
+    end)
+    
+    if not success then
+        print("Teleport failed: ", errorMsg)
+        -- Gửi webhook thông báo nếu không thể mua vật phẩm hoặc chuyển server
+        sendWebhook("Teleport failed", "Could not switch server or buy item.", 16711680)
+    else
+        print("Teleport success")
+    end
+end
+
+-- Thử gởi webhook với một tin nhắn test
+sendWebhook("Test Title", "This is a test message from Roblox webhook", 5814783)
+
+-- Kiểm tra các sự kiện và hoạt động trong game
+while true do
+    -- Đợi một khoảng thời gian trước khi chuyển server
+    wait(60) -- Đợi 60 giây
+    hopToNewServer() -- Gọi hàm chuyển server
+end
