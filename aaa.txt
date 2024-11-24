@@ -6,7 +6,7 @@ getgenv().Settings = {
             -- SearchTerminal configuration
             SearchTerminal = {
                 [[ Terminal doesn't support custom keywords like "All Huges" or "AllTiers". ]],
-                ["Crystal Key Upper Half"] = {Class = "Misc", Price = "+150%"}, -- Corrected Price to +400%
+                ["Crystal Key Upper Half"] = {Class = "Misc", Price = "+120%"}, -- Corrected Price to +400%
             },
         },
         Serverhop = {
