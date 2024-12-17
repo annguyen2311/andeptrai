@@ -1,0 +1,126 @@
+import tkinter as tk
+from tkinter import filedialog, messagebox
+
+# Hàm đọc file chứa tên tài khoản yêu cầu (danh sách tài khoản cần lọc)
+def read_account_names(file_path):
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            # Lọc và phân tách các tên tài khoản trong file (dùng dấu ',' để phân cách)
+            account_names = file.read().strip().split(',')
+            return account_names
+    except Exception as e:
+        messagebox.showerror("Lỗi", f"Không thể đọc file tài khoản yêu cầu: {str(e)}")
+        return []
+
+# Hàm đọc file chứa các tài khoản
+def read_input_file(file_path):
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            return [line.strip() for line in file if line.strip()]
+    except Exception as e:
+        messagebox.showerror("Lỗi", f"Không thể đọc file đầu vào: {str(e)}")
+        return []
+
+# Hàm lọc tài khoản từ file đầu vào theo danh sách tên tài khoản yêu cầu
+def filter_accounts(accounts, account_names):
+    matched_accounts = []
+    account_names_set = set(account_names)  # Chuyển danh sách tên thành set để kiểm tra nhanh hơn
+    for account in accounts:
+        username = account.split(":")[0]  # Lấy tên tài khoản từ phần đầu của mỗi dòng
+        if username in account_names_set:
+            matched_accounts.append(account)
+    return matched_accounts
+
+# Hàm lưu các tài khoản đã lọc vào file đầu ra
+def save_to_output_file(filtered_accounts, output_file):
+    try:
+        with open(output_file, 'w', encoding='utf-8') as file:
+            for account in filtered_accounts:
+                file.write(account + '\n')
+        messagebox.showinfo("Hoàn tất", f"Tài khoản đã được lưu vào: {output_file}")
+    except Exception as e:
+        messagebox.showerror("Lỗi", f"Không thể lưu file đầu ra: {str(e)}")
+
+# Hàm xử lý lọc tài khoản khi nhấn nút
+def process_filter():
+    input_file_path = input_file_label.cget("text")
+    account_file_path = account_file_label.cget("text")
+    output_file_path = output_file_label.cget("text")
+
+    if not input_file_path or input_file_path == "Chưa chọn file đầu vào":
+        messagebox.showerror("Lỗi", "Vui lòng chọn file đầu vào.")
+        return
+
+    if not account_file_path or account_file_path == "Chưa chọn file tài khoản yêu cầu":
+        messagebox.showerror("Lỗi", "Vui lòng chọn file tài khoản yêu cầu.")
+        return
+
+    if not output_file_path or output_file_path == "Chưa chọn file đầu ra":
+        messagebox.showerror("Lỗi", "Vui lòng chọn file đầu ra.")
+        return
+
+    # Đọc các file
+    accounts = read_input_file(input_file_path)
+    account_names = read_account_names(account_file_path)
+
+    # Lọc các tài khoản cần tìm
+    filtered_accounts = filter_accounts(accounts, account_names)
+
+    # Nếu có tài khoản phù hợp, lưu vào file đầu ra
+    if filtered_accounts:
+        save_to_output_file(filtered_accounts, output_file_path)
+    else:
+        messagebox.showinfo("Không có kết quả", "Không tìm thấy tài khoản nào phù hợp.")
+
+# Hàm chọn file đầu vào (tài khoản)
+def select_input_file():
+    file_path = filedialog.askopenfilename(title="Chọn file đầu vào", filetypes=[("Text Files", "*.txt")])
+    if file_path:
+        input_file_label.config(text=file_path)
+
+# Hàm chọn file tài khoản yêu cầu
+def select_account_file():
+    file_path = filedialog.askopenfilename(title="Chọn file tài khoản yêu cầu", filetypes=[("Text Files", "*.txt")])
+    if file_path:
+        account_file_label.config(text=file_path)
+
+# Hàm chọn file đầu ra
+def select_output_file():
+    file_path = filedialog.asksaveasfilename(defaultextension=".txt", title="Chọn file đầu ra", filetypes=[("Text Files", "*.txt")])
+    if file_path:
+        output_file_label.config(text=file_path)
+
+# Giao diện
+root = tk.Tk()
+root.title("Lọc Tài Khoản")
+root.geometry("500x400")
+
+# Khung chọn file đầu vào
+input_file_frame = tk.LabelFrame(root, text="Chọn file đầu vào", padx=10, pady=10)
+input_file_frame.grid(row=0, column=0, padx=10, pady=10, sticky="ew")
+input_file_label = tk.Label(input_file_frame, text="Chưa chọn file đầu vào", width=50)
+input_file_label.grid(row=0, column=0)
+input_file_button = tk.Button(input_file_frame, text="Chọn File", command=select_input_file)
+input_file_button.grid(row=1, column=0)
+
+# Khung chọn file tài khoản yêu cầu
+account_file_frame = tk.LabelFrame(root, text="Chọn file tài khoản yêu cầu", padx=10, pady=10)
+account_file_frame.grid(row=1, column=0, padx=10, pady=10, sticky="ew")
+account_file_label = tk.Label(account_file_frame, text="Chưa chọn file tài khoản yêu cầu", width=50)
+account_file_label.grid(row=0, column=0)
+account_file_button = tk.Button(account_file_frame, text="Chọn File", command=select_account_file)
+account_file_button.grid(row=1, column=0)
+
+# Khung chọn file đầu ra
+output_file_frame = tk.LabelFrame(root, text="Chọn file đầu ra", padx=10, pady=10)
+output_file_frame.grid(row=2, column=0, padx=10, pady=10, sticky="ew")
+output_file_label = tk.Label(output_file_frame, text="Chưa chọn file đầu ra", width=50)
+output_file_label.grid(row=0, column=0)
+output_file_button = tk.Button(output_file_frame, text="Chọn File", command=select_output_file)
+output_file_button.grid(row=1, column=0)
+
+# Nút lọc tài khoản
+process_button = tk.Button(root, text="Lọc Tài Khoản", command=process_filter)
+process_button.grid(row=3, column=0, pady=20)
+
+root.mainloop()
