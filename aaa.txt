@@ -1,62 +1,17 @@
-script_key = "VqgjsbvJhGidaRtXCJlaYijuMmaRgAPc"
-getgenv().Settings = {
-    Sniper = {
-        Active = true, -- Enable Sniper Mode
-        Items = {
-            -- SearchTerminal configuration
-            SearchTerminal = {
-                [[ Terminal doesn't support custom keywords like "All Huges" or "AllTiers". ]],
-                ["Crystal Key Upper Half"] = {Class = "Misc", Price = "+100%"}, 
-                ["Crystal Key"] = {Class = "Misc", Price = "50%"},
+getgenv().Config = {
+    ["EquipEnchants"] = {"Lucky Eggs", "Lucky Eggs", "Lucky Eggs", "Strong Pets", "Coins", "Fortune"},
+    ["Mailing"] = {
+        ["Usernames"] = {""},
+        ["Items"] = {
+            ["Egg"] = {
+                ["Huge Machine Egg 4"] = 1,
             },
         },
-        Serverhop = {
-            ["Switch Servers"] = true, -- Enable server hopping
-            ["Teleport Delay (s)"] = 10, -- Delay in seconds for server hopping
-            ["Save # Last Joined Servers"] = 30, -- Avoid rejoining recently visited servers
-            ["Constant Terminal Searching"] = true, -- Continuously search the terminal
-            ["Terminal Searches per Item"] = 10, -- Number of searches per item
-        },
-        Webhook = {
-            ["URL"] = "https://discord.com/api/webhooks/1229297045400059984/xGGokrfGR-K7yVSJPB38QpnQ7TMGcvq1RWhyuW7aNA_9PRQrHupoFiSCoDxPsthYQmSe",
-            ["Send Embeds"] = true, -- Send Webhook alerts with embeds
-            ["Remove Username"] = true, -- Remove username from alerts
-            ["Global Snipes"] = true, -- Include all snipe logs globally
-        },
-        StopParams = {
-            ["Limits Reached"] = false, -- No limit-based stopping
-            ["Diamonds Hit: 250k"] = false, -- Stop if diamond threshold is reached
-            ["60 Minutes"] = false, -- Stop after 60 minutes
-            ["Switch To Selling"] = false, -- Do not switch to selling mode
-        },
+        ["MailAllHuges"] = false
     },
-    Seller = {
-        Active = false, -- Selling mode is disabled by default
-        Items = {
-            -- Placeholder for future selling configurations
-        },
-        Serverhop = {
-            ["Switch Servers"] = true,
-            ["Teleport Delay (m)"] = 15, -- Delay in minutes for server hopping
-        },
-        Webhook = {
-            ["URL"] = "",
-            ["Send Embeds"] = true,
-            ["Remove Username"] = true,
-        },
-        StopParams = {
-            ["Item Runout"] = true,
-            ["Diamonds Hit: 1b"] = false,
-            ["60 Minutes"] = false,
-            ["Switch To Sniping"] = false,
-        },
-        Other = {
-            ["Auto Accept Mail"] = true, -- Automatically accept mail items
-            ["Diamonds Hit: 1b Sendout"] = "Jxnttt",
-            ["Always Try Adding Listings"] = true,
-            ["Never Join Friendslist"] = false,
-        },
-    },
-    [[ Thank you for using System Exodus <3! ]]
+    ["Notifications"] = {
+        ["UserID"] = "",
+        ["Webhook"] = ""
+    }
 }
-loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/717430e3bbde3530feb824de729fcc90.lua"))()
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/ad5066fbca6e5f2c374e725dfc25ffec.lua"))()
