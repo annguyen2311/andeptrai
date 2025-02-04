@@ -1,5 +1,5 @@
-getgenv().Key = "sxionax_pIX7XafRRrQ"
-getgenv().Script = "BocchiHub"
+getgenv().Key = "Please Write Your Key Here"
+getgenv().Script = "sxionax_pIX7XafRRrQ
 getgenv().Config = {
     ["Return Lobby"] = {
         ["Enable"] = false,
@@ -34,37 +34,20 @@ getgenv().Config = {
         },
         ["Unit"] = {
             ["Enable"] = false,
-            ["Units"] = {"Berserker", "Honey", "Iceclaw (Rebirth)", "Dreamer"}
+            ["Units"] = {"Ghost-kun", "Honey", "Iceclaw (Rebirth)", "Dreamer"}
         }
-    },
-    ["Auto Buy Merchant"] = {
-        ["Enable"] = true
     },
     ["Unit Evo"] = {
         ghostkun = false,
         grimmjow_res = false,
         bee_girl = false,
-        gremmy = false,
-        guts = false,
-        law_2 = false,
-        usopp_ts = false
-    },
-    ["Premium Evo"] = {
-        ["Evo Guts"] = {
-            ["Enable"] = false
-        },
-        ["Evo Usopp"] = {
-            ["Enable"] = false
-        },
-        ["Evo Law"] = {
-            ["Enable"] = false
-        }
+        gremmy = false
     },
     ["Sell When Summon"] = {"Rare", "Epic"},
     ["Story"] = {
         ["Map Farm"] = "Walled City",
         ["Clear All Story"] = {
-            ["Enable"] = true
+            ["Enable"] = false
         }
     },
     ["Check Challenge"] = {
@@ -81,17 +64,14 @@ getgenv().Config = {
         },
         ["Equip Priorities"] = {
             ["Enable"] = false, 
-            ["Units"] = {"guts_berserker", "bee_girl", "speedwagon", "bulma"}
+            ["Units"] = {"ghostkun_evolved", "bee_girl", "speedwagon", "bulma"}
         },
         ["Team"] = {
-        ["Enable"] = false,
-            ["Team For Story"] = {"bee_girl_evolved"},
+            ["Enable"] = false,
+            ["Team For Story"] = {"goku_ssj3"},
             ["Team For Clear Raid"] = {"goku_ssj3"},
-            ["Team For Clear Challenge"] = {"bee_girl"},
-            ["Team For Farm Relic"] = {"bee_girl"},
-            ["Team For Evo Guts"] = {"bee_girl_evolved"},
-            ["Team For Evo Usopp"] = {"bee_girl_evolved"},
-            ["Team For Evo Law"] = {"bee_girl_evolved"}
+            ["Team For Clear Challenge"] = {"anz"},
+            ["Team For Farm Relic"] = {"bee_girl"}
         }
     },
     ["Game"] = {
