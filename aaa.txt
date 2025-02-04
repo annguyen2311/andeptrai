@@ -1,17 +1,103 @@
+getgenv().Key = "sxionax_pIX7XafRRrQ"
+getgenv().Script = "BocchiHub"
 getgenv().Config = {
-    ["EquipEnchants"] = {"Lucky Eggs", "Lucky Eggs", "Lucky Eggs", "Strong Pets", "Coins", "Fortune"},
-    ["Mailing"] = {
-        ["Usernames"] = {""},
-        ["Items"] = {
-            ["Egg"] = {
-                ["Huge Machine Egg 4"] = 1,
-            },
+    ["Return Lobby"] = {
+        ["Enable"] = false,
+        ["Return Lobby For Check Challenge"] = {
+            ["Enable"] = false
         },
-        ["MailAllHuges"] = false
+        ["Return Lobby For Check Banner"] = {
+            ["Enable"] = false
+        }
     },
-    ["Notifications"] = {
-        ["UserID"] = "",
-        ["Webhook"] = ""
+    ["UI"] = true,
+    ["Webhook"] = {
+        ["URL"] = "link",
+        ["Ping"] = "108"
+    },
+    ["Change Acc If Use Rokid Tool"] = {
+        ["Enable"] = false,
+        ["Gem"] = 100000,
+        ["Level"] = 10
+    },
+    ["Auto Feed"] = {
+        ["Enable"] = false, 
+        ["Units"] = {
+            { Name = "ghostkun_evolved", Level = 59 },
+            { Name = "bee_girl", Level = 60 }
+        }
+    },
+    ["Auto Summon"] = {
+        ["Summon Rarity"] = {
+            ["Enable"] = true,
+            ["Rarity"] = {"Legendary"}
+        },
+        ["Unit"] = {
+            ["Enable"] = false,
+            ["Units"] = {"Berserker", "Honey", "Iceclaw (Rebirth)", "Dreamer"}
+        }
+    },
+    ["Auto Buy Merchant"] = {
+        ["Enable"] = true
+    },
+    ["Unit Evo"] = {
+        ghostkun = false,
+        grimmjow_res = false,
+        bee_girl = false,
+        gremmy = false,
+        guts = false,
+        law_2 = false,
+        usopp_ts = false
+    },
+    ["Premium Evo"] = {
+        ["Evo Guts"] = {
+            ["Enable"] = false
+        },
+        ["Evo Usopp"] = {
+            ["Enable"] = false
+        },
+        ["Evo Law"] = {
+            ["Enable"] = false
+        }
+    },
+    ["Sell When Summon"] = {"Rare", "Epic"},
+    ["Story"] = {
+        ["Map Farm"] = "Walled City",
+        ["Clear All Story"] = {
+            ["Enable"] = true
+        }
+    },
+    ["Check Challenge"] = {
+        ["Fruit Challenge"] = {
+            ["Enable"] = false
+        },
+        ["Daily Challenge"] = {
+            ["Enable"] = false
+        }
+    },
+    ["Equip"] = {
+        ["Equip Best"] = {
+            ["Enable"] = true, 
+        },
+        ["Equip Priorities"] = {
+            ["Enable"] = false, 
+            ["Units"] = {"guts_berserker", "bee_girl", "speedwagon", "bulma"}
+        },
+        ["Team"] = {
+        ["Enable"] = false,
+            ["Team For Story"] = {"bee_girl_evolved"},
+            ["Team For Clear Raid"] = {"goku_ssj3"},
+            ["Team For Clear Challenge"] = {"bee_girl"},
+            ["Team For Farm Relic"] = {"bee_girl"},
+            ["Team For Evo Guts"] = {"bee_girl_evolved"},
+            ["Team For Evo Usopp"] = {"bee_girl_evolved"},
+            ["Team For Evo Law"] = {"bee_girl_evolved"}
+        }
+    },
+    ["Game"] = {
+        ["Auto Sell"] = {
+            ["Enable"] = true,
+            ["Wave"] = 9
+        }
     }
-}
-loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/ad5066fbca6e5f2c374e725dfc25ffec.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/RISER93-ROBLOX/AfxcaxiRT1/refs/heads/main/Lurag%20Scripts"))()
