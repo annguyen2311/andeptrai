@@ -1,0 +1,103 @@
+import tkinter as tk
+from tkinter import filedialog, messagebox, ttk
+import os
+import math
+
+# Hàm chọn file đầu vào
+def select_input_file():
+    input_file = filedialog.askopenfilename(title="Chọn file đầu vào", filetypes=[("Text Files", "*.txt")])
+    if input_file:
+        input_file_label.config(text=input_file)
+        
+        # Đếm số tài khoản
+        with open(input_file, 'r', encoding='utf-8') as f:
+            total_accounts = len(f.readlines())
+        
+        # Cập nhật nhãn số tài khoản
+        account_count_label.config(text=f"Tổng số tài khoản: {total_accounts}")
+
+# Hàm tự động tách file
+def auto_split_accounts():
+    input_file = input_file_label.cget("text")
+    
+    # Kiểm tra đã chọn file chưa
+    if not input_file or input_file == "Chưa chọn file đầu vào":
+        messagebox.showerror("Lỗi", "Vui lòng chọn file đầu vào")
+        return
+    
+    try:
+        # Lấy số tài khoản mỗi file
+        accounts_per_file = int(accounts_per_file_entry.get())
+        
+        # Đọc toàn bộ tài khoản
+        with open(input_file, 'r', encoding='utf-8') as f:
+            all_accounts = f.readlines()
+        
+        # Tổng số tài khoản
+        total_accounts = len(all_accounts)
+        
+        # Tính toán số lượng file tự động
+        num_files = math.ceil(total_accounts / accounts_per_file)
+        
+        # Tạo thư mục lưu file nếu chưa tồn tại
+        output_dir = os.path.join(os.path.dirname(input_file), "split_accounts")
+        os.makedirs(output_dir, exist_ok=True)
+        
+        # Tách tài khoản
+        for i in range(num_files):
+            start_index = i * accounts_per_file
+            end_index = min((i + 1) * accounts_per_file, total_accounts)
+            
+            # Tạo tên file
+            output_file = os.path.join(output_dir, f"accounts_file_{i+1}.txt")
+            
+            # Ghi tài khoản vào file
+            with open(output_file, 'w', encoding='utf-8') as f:
+                f.writelines(all_accounts[start_index:end_index])
+        
+        # Thông báo thành công
+        messagebox.showinfo("Thành công", f"Đã tách thành {num_files} file thành công!\nMỗi file {accounts_per_file} tài khoản\nLưu tại: {output_dir}")
+        
+        # Mở thư mục chứa các file vừa tách
+        os.startfile(output_dir)
+    
+    except ValueError:
+        messagebox.showerror("Lỗi", "Vui lòng nhập số tài khoản hợp lệ")
+    except Exception as e:
+        messagebox.showerror("Lỗi", f"Đã xảy ra lỗi: {str(e)}")
+
+# Tạo giao diện chính
+root = tk.Tk()
+root.title("Công Cụ Tách Tài Khoản")
+root.geometry("500x400")
+root.config(bg="#f0f0f0")
+
+# Khung chọn file đầu vào
+frame_input = ttk.LabelFrame(root, text="Chọn File Đầu Vào", padding="20")
+frame_input.pack(fill="both", padx=10, pady=10)
+
+input_file_label = ttk.Label(frame_input, text="Chưa chọn file đầu vào", width=50, anchor="w", background="#ffffff")
+input_file_label.pack(pady=5)
+select_input_button = ttk.Button(frame_input, text="Chọn File Đầu Vào", command=select_input_file)
+select_input_button.pack(pady=5)
+
+# Hiển thị số tài khoản
+account_count_label = ttk.Label(frame_input, text="Tổng số tài khoản: 0", width=50, anchor="w")
+account_count_label.pack(pady=5)
+
+# Khung tách tự động
+frame_auto_split = ttk.LabelFrame(root, text="Tách Tự Động", padding="20")
+frame_auto_split.pack(fill="both", padx=10, pady=10)
+
+# Số tài khoản mỗi file
+accounts_per_file_label = ttk.Label(frame_auto_split, text="Số tài khoản mỗi file:", width=50, anchor="w")
+accounts_per_file_label.pack(pady=5)
+accounts_per_file_entry = ttk.Entry(frame_auto_split, width=20)
+accounts_per_file_entry.pack(pady=5)
+
+# Nút tách tự động
+auto_split_button = ttk.Button(root, text="Tách Tự Động", command=auto_split_accounts)
+auto_split_button.pack(pady=10)
+
+# Chạy ứng dụng
+root.mainloop()
