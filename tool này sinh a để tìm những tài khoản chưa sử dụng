@@ -1,0 +1,85 @@
+import tkinter as tk
+from tkinter import filedialog, messagebox
+import os
+
+
+def extract_usernames(lines):
+    usernames = set()
+    for line in lines:
+        if ":" in line:
+            parts = line.strip().split(":")
+            if parts:
+                usernames.add(parts[0])
+    return usernames
+
+
+def choose_file(entry):
+    path = filedialog.askopenfilename(title="Chọn file")
+    if path:
+        entry.delete(0, tk.END)
+        entry.insert(0, path)
+
+
+def compare_accounts():
+    file1_path = entry_file1.get()
+    file2_path = entry_file2.get()
+
+    if not file1_path or not file2_path:
+        messagebox.showwarning("Cảnh báo", "Vui lòng chọn cả hai file")
+        return
+
+    if not os.path.exists(file1_path) or not os.path.exists(file2_path):
+        messagebox.showerror("Lỗi", "Một trong hai file không tồn tại")
+        return
+
+    with open(file1_path, 'r', encoding='utf-8') as f1:
+        total_lines = f1.readlines()
+
+    with open(file2_path, 'r', encoding='utf-8') as f2:
+        used_lines = f2.readlines()
+
+    total_users = extract_usernames(total_lines)
+    used_users = extract_usernames(used_lines)
+
+    unused_users = total_users - used_users
+
+    result_lines = [line for line in total_lines if line.split(":")[0] in unused_users]
+
+    save_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text Files", "*.txt")],
+                                             title="Lưu kết quả chưa dùng")
+    if save_path:
+        with open(save_path, 'w', encoding='utf-8') as out:
+            out.writelines(result_lines)
+        messagebox.showinfo("Thành công", f"Đã lưu {len(result_lines)} tài khoản chưa sử dụng.")
+
+
+# Giao diện chính
+root = tk.Tk()
+root.title("So sánh tài khoản chưa sử dụng")
+root.geometry("500x250")
+root.resizable(False, False)
+
+frame = tk.Frame(root)
+frame.pack(pady=20, padx=10)
+
+# File tổng
+label_file1 = tk.Label(frame, text="File tổng (chứa tất cả tài khoản):")
+label_file1.grid(row=0, column=0, sticky='w')
+entry_file1 = tk.Entry(frame, width=50)
+entry_file1.grid(row=1, column=0, padx=5, pady=5)
+btn_browse1 = tk.Button(frame, text="Chọn...", command=lambda: choose_file(entry_file1))
+btn_browse1.grid(row=1, column=1, padx=5)
+
+# File đã dùng
+label_file2 = tk.Label(frame, text="File chứa tài khoản đã sử dụng:")
+label_file2.grid(row=2, column=0, sticky='w')
+entry_file2 = tk.Entry(frame, width=50)
+entry_file2.grid(row=3, column=0, padx=5, pady=5)
+btn_browse2 = tk.Button(frame, text="Chọn...", command=lambda: choose_file(entry_file2))
+btn_browse2.grid(row=3, column=1, padx=5)
+
+# Nút so sánh
+btn_compare = tk.Button(root, text="Lọc tài khoản chưa sử dụng", command=compare_accounts, width=30, bg="#4CAF50", fg="white")
+btn_compare.pack(pady=20)
+
+root.mainloop()
