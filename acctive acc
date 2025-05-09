@@ -1,0 +1,152 @@
+import time
+import undetected_chromedriver as uc
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import tkinter as tk
+from tkinter import filedialog, messagebox
+
+def safe_click(driver, element):
+    """Thử click element bằng click() hoặc JS click() nếu cần."""
+    try:
+        driver.execute_script("arguments[0].scrollIntoView(true);", element)
+        element.click()
+    except:
+        driver.execute_script("arguments[0].click();", element)
+
+def reactivate_via_ui(cookie, output, headless=False):
+    options = uc.ChromeOptions()
+    options.add_argument("--disable-gpu")
+    if headless:
+        options.add_argument("--headless")
+    driver = uc.Chrome(options=options)
+    wait = WebDriverWait(driver, 5)  # Giảm thời gian chờ
+
+    try:
+        driver.get("https://www.roblox.com")
+        driver.delete_all_cookies()
+        driver.execute_script(
+            "document.cookie = "
+            f"'.ROBLOSECURITY={cookie}; domain=.roblox.com; path=/';"
+        )
+        driver.refresh()
+
+        # Accept cookie banner nếu có
+        try:
+            btn = wait.until(EC.element_to_be_clickable(
+                (By.XPATH, '//button[contains(text(),"Accept All")]')
+            ))
+            safe_click(driver, btn)
+            output.insert(tk.END, "  • Clicked Accept All banner\n")
+        except:
+            output.insert(tk.END, "  • No Accept All banner\n")
+
+        # Truy cập trang re-activate và kiểm tra ngay lập tức
+        driver.get("https://www.roblox.com/not-approved")
+        time.sleep(1)
+
+        # Kiểm tra tài khoản bị banned nhanh chóng
+        try:
+            driver.find_element(By.XPATH,
+                "//*[contains(text(),'banned') or contains(text(),'Banned')]")
+            output.insert(tk.END, "  • Account banned, skipped\n\n")
+            return "[!] Account banned, skipped"
+        except:
+            pass
+
+        # Kiểm tra nút Re-activate My Account
+        try:
+            btn_re = wait.until(EC.element_to_be_clickable((
+                By.XPATH,
+                '//button[contains(text(),"Re-activate My Account") and not(@disabled)]'
+            )))
+            safe_click(driver, btn_re)
+            output.insert(tk.END, "  • Clicked Re-activate My Account\n")
+            time.sleep(1)
+            success = "home" in driver.current_url
+            return "[✓] Kích hoạt thành công" if success else "[x] Không về Home"
+        except:
+            output.insert(tk.END, "  • Không thể tìm thấy nút Re-activate, bỏ qua.\n")
+            return "[!] Re-activate button not available"
+
+    except Exception as e:
+        return f"[!] UI Error: {e}"
+    finally:
+        driver.quit()
+
+# GUI và workflow giống trước
+def add_cookie():
+    raw = entry.get().strip()
+    if raw:
+        lst.insert(tk.END, raw)
+        entry.delete(0, tk.END)
+
+def load_file():
+    path = filedialog.askopenfilename(
+        filetypes=[("Text files","*.txt"),("All files","*.*")]
+    )
+    if not path:
+        return
+    with open(path, encoding="utf-8") as f:
+        for l in f:
+            if l.strip():
+                lst.insert(tk.END, l.strip())
+
+def run_all():
+    items = lst.get(0, tk.END)
+    if not items:
+        messagebox.showwarning("Chú ý", "Chưa có cookie nào!")
+        return
+    text_output.delete(1.0, tk.END)
+    headless = var_headless.get()
+
+    for idx, raw in enumerate(items, 1):
+        if "|_" in raw:
+            cookie = raw.split("|_")[-1].strip()
+        elif ":" in raw:
+            cookie = raw.split(":")[-1].strip()
+        else:
+            cookie = raw.strip()
+        header = f"[{idx}/{len(items)}] Cookie: {cookie[:25]}...\n"
+        print(header.strip())
+        text_output.insert(tk.END, header); text_output.see(tk.END)
+
+        result = reactivate_via_ui(cookie, text_output, headless)
+        line = f"  → {result}\n\n"
+        print(line.strip())
+        text_output.insert(tk.END, line); text_output.see(tk.END)
+
+def build_gui():
+    root = tk.Tk()
+    root.title("Tool Reactivate Roblox")
+    root.geometry("700x620")
+
+    tk.Label(root, text="Nhập raw-line (tk:mk:cookie hoặc _|WARNING…|_cookie):")\
+      .pack(anchor="w", padx=10, pady=5)
+    global entry; entry = tk.Entry(root, width=80)
+    entry.pack(padx=10, pady=2)
+    tk.Button(root, text="Add vào danh sách", command=add_cookie)\
+      .pack(padx=10, pady=2)
+
+    tk.Button(root, text="Load từ file .txt", command=load_file)\
+      .pack(padx=10, pady=5)
+
+    global lst; lst = tk.Listbox(root, width=90, height=8)
+    lst.pack(padx=10, pady=5)
+
+    global var_headless; var_headless = tk.BooleanVar()
+    tk.Checkbutton(root, text="Headless mode", variable=var_headless)\
+      .pack(anchor="w", padx=20, pady=5)
+
+    tk.Button(root, text="Run Reactivate", command=run_all)\
+      .pack(padx=10, pady=10)
+
+    tk.Label(root, text="Kết quả (GUI & terminal):")\
+      .pack(anchor="w", padx=10)
+    global text_output; text_output = tk.Text(root, wrap=tk.WORD, height=20, width=90)
+    text_output.pack(padx=10, pady=5)
+
+    root.mainloop()
+
+if __name__ == "__main__":
+    build_gui()
